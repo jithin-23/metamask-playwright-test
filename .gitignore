@@ -37,7 +37,6 @@ trace.zip
 
 # MetaMask profiles (don’t commit)
 mm-profile/
-metamask-extension/
 
 # OS-specific
 .DS_Store
