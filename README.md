@@ -47,3 +47,33 @@ Execute the Playwright test suite:
 npx playwright test
 ```
 
+### 🔎 Final Notes on Playwright + MetaMask
+
+1. **Setup Complexity**
+
+   * Requires downloading the MetaMask extension source and loading it manually into Chromium.
+   * Need to configure a Chromium profile with the wallet seed phrase and network each time (unless a preconfigured profile is reused).
+   * Slightly more involved compared to frameworks like Synpress that abstract some steps.
+
+2. **Maintenance Burden**
+
+   * MetaMask updates frequently → selectors or flows may break, requiring test updates.
+   * Reusing a preconfigured profile reduces setup overhead but introduces version lock-in (tests may not reflect latest MetaMask UI changes).
+
+3. **Headless Mode & Extension ID**
+
+   * Cannot run in true headless mode because extensions and UI popups are not supported. CI/CD requires headed mode with a virtual display (e.g., `xvfb`).
+   * Extension ID changes when loading from a local folder — this is expected. Workarounds include:
+
+     * Using a discovery script to grab the actual ID each run.
+     * Or reusing a preconfigured profile, where the ID stays stable.
+
+4. **What Has Been Tested**
+
+   * ✅ Importing a pre-funded MetaMask wallet via seed phrase.
+   * ✅ Switching networks to Sepolia testnet.
+   * ✅ Sending **0.01 ETH** from the wallet to a receiver address.
+   * These flows confirm wallet connection, network switching, and transaction approval work in an automated test.
+
+
+
